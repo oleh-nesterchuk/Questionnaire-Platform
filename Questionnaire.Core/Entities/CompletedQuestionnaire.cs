@@ -10,5 +10,8 @@ namespace Questionnaire.Core.Entities
         public DateTime CompletionTime { get; set; }
 
         public int ParticipantId { get; set; }
+
+        public int QuestionnaireId { get; set; }
+        public Questionnaire Questionnaire { get; set; }
     }
 }

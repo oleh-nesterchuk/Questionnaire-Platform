@@ -1,5 +1,6 @@
 ﻿using Questionnaire.Core.Abstractions;
 using System;
+using System.Collections.Generic;
 
 namespace Questionnaire.Core.Entities
 {
@@ -12,5 +13,7 @@ namespace Questionnaire.Core.Entities
         public string Title { get; set; }
 
         public int CreatorId { get; set; }
+
+        public ICollection<Question> Questions { get; set; }
     }
 }

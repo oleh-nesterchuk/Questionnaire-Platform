@@ -7,7 +7,8 @@ namespace Questionnaire.Core.Entities
         public int Id { get; set; }
 
         public int CompletedSurveyId { get; set; }
-        public int QuestionId { get; set; }
+
         public int AnswerId { get; set; }
+        public Answer Answer { get; set; }
     }
 }
