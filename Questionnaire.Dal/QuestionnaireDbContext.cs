@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Questionnaire.Core.Entities;
+using Questionnaire.Core.Enums;
+using System;
 
 namespace Questionnaire.Dal
 {
@@ -33,6 +35,10 @@ namespace Questionnaire.Dal
             {
                 question.Property(q => q.Text)
                     .HasMaxLength(400);
+
+                question.Property(q => q.Type)
+                    .HasConversion<string>()
+                    .HasMaxLength(50);
             });
 
             builder.Entity<Core.Entities.Questionnaire>(questionnaire =>
