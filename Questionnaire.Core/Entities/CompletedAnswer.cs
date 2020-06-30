@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Questionnaire.Core.Abstractions;
 
 namespace Questionnaire.Core.Entities
 {
-    class CompletedAnswer
+    public class CompletedAnswer : IEntity<int>
     {
+        public int Id { get; set; }
+
+        public int CompletedSurveyId { get; set; }
+        public int QuestionId { get; set; }
+        public int AnswerId { get; set; }
     }
 }
