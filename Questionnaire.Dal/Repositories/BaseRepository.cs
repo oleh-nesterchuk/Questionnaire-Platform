@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Questionnaire.Core.Abstractions;
+﻿using Questionnaire.Core.Abstractions;
 using Questionnaire.Core.Abstractions.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,13 +10,21 @@ namespace Questionnaire.Dal.Repositories
     {
         protected readonly QuestionnaireDbContext _context;
 
-        public BaseRepository(QuestionnaireDbContext context) => _context = context;
-        
-        public virtual async Task<TEntity> GetByIdAsync(TKey id) => 
-            await _context.Set<TEntity>().FindAsync(id);
-        
-        public virtual IQueryable<TEntity> GetAll() => _context.Set<TEntity>();
-       
+        public BaseRepository(QuestionnaireDbContext context)
+        {
+            _context = context;
+        }
+
+        public virtual async Task<TEntity> GetByIdAsync(TKey id)
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
+
+        public virtual IQueryable<TEntity> GetAll()
+        {
+            return _context.Set<TEntity>();
+        }
+
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
@@ -34,8 +39,9 @@ namespace Questionnaire.Dal.Repositories
             return await GetByIdAsync(entity.Id);
         }
 
-        public virtual void DeleteById(TKey id) =>
+        public virtual void DeleteById(TKey id)
+        {
             _context.Set<TEntity>().Remove(new TEntity { Id = id });
-        
+        }
     }
 }

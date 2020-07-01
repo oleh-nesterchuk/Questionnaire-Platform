@@ -2,7 +2,7 @@
 
 namespace Questionnaire.Core.Abstractions.Repositories
 {
-    public interface ICompletedQuestionnaire : IRepository<CompletedQuestionnaire, int>
+    public interface ICompletedAnswerRepository : IRepository<CompletedAnswer, int>
     {
     }
 }
