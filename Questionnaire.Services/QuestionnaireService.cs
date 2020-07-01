@@ -2,6 +2,7 @@
 using Questionnaire.Core.Abstractions;
 using Questionnaire.Core.Abstractions.Services;
 using Questionnaire.Core.Dto;
+using Questionnaire.Core.Exceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,6 +22,11 @@ namespace Questionnaire.Services
         public async Task<FullQuestionnaireDto> GetFullQuestionnaireByIdAsync(int id)
         {
             var questionnaire = await _unitOfWork.QuestionnaireRepository.GetByIdAsync(id);
+            if (questionnaire == null)
+            {
+                throw new ElementNotFoundException($"Questionnaire with id {id} has not been found.");
+            }
+
             var dto = _mapper.Map<FullQuestionnaireDto>(questionnaire);
 
             return dto;
