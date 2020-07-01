@@ -1,6 +1,7 @@
-﻿using Questionnaire.Core.Abstractions.Services;
+﻿using AutoMapper;
+using Questionnaire.Core.Abstractions;
+using Questionnaire.Core.Abstractions.Services;
 using Questionnaire.Core.Dto;
-using Questionnaire.Dal;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,36 +9,59 @@ namespace Questionnaire.Services
 {
     public class QuestionnaireService : IQuestionnaireService
     {
-        private readonly QuestionnaireDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public QuestionnaireService(QuestionnaireDbContext context)
+        public QuestionnaireService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<FullQuestionnaireDto> GetFullQuestionnaireByIdAsync(int id)
+        public async Task<FullQuestionnaireDto> GetFullQuestionnaireByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var questionnaire = await _unitOfWork.QuestionnaireRepository.GetByIdAsync(id);
+            var dto = _mapper.Map<FullQuestionnaireDto>(questionnaire);
+
+            return dto;
         }
 
         public ICollection<QuestionnaireInfoDto> GetAllQuestionnaires()
         {
-            throw new System.NotImplementedException();
+            var questionnaires = _unitOfWork.QuestionnaireRepository.GetAll();
+            var dtos = _mapper.Map<ICollection<QuestionnaireInfoDto>>(questionnaires);
+
+            return dtos;
         }
 
-        public Task<QuestionnaireInfoDto> AddQuestionnaireAsync(FullQuestionnaireDto dto)
+        public async Task<QuestionnaireInfoDto> AddQuestionnaireAsync(FullQuestionnaireDto dto)
         {
-            throw new System.NotImplementedException();
+            var questionnaireToAdd = _mapper.Map<Core.Entities.Questionnaire>(dto);
+
+            var addedQuestionnaire = await _unitOfWork.QuestionnaireRepository.AddAsync(questionnaireToAdd);
+
+            var dtoToReturn = _mapper.Map<QuestionnaireInfoDto>(addedQuestionnaire);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return dtoToReturn;
         }
 
-        public Task<QuestionnaireInfoDto> UpdateQuestionnaireAsync(QuestionnaireInfoDto dto)
+        public async Task<QuestionnaireInfoDto> UpdateQuestionnaireAsync(QuestionnaireInfoDto dto)
         {
-            throw new System.NotImplementedException();
+            var questionnaire = _mapper.Map<Core.Entities.Questionnaire>(dto);
+
+            await _unitOfWork.QuestionnaireRepository.UpdateAsync(questionnaire);
+            await _unitOfWork.SaveChangesAsync();
+
+            return dto;
         }
 
-        public Task DeleteQuestionnaireAsync(int id)
+        public async Task DeleteQuestionnaireAsync(int id)
         {
-            throw new System.NotImplementedException();
+            _unitOfWork.QuestionnaireRepository.DeleteById(id);
+
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

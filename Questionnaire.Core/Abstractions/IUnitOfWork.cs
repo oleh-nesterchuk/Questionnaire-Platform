@@ -1,5 +1,6 @@
 ﻿using Questionnaire.Core.Abstractions.Repositories;
 using System;
+using System.Threading.Tasks;
 
 namespace Questionnaire.Core.Abstractions
 {
@@ -10,5 +11,7 @@ namespace Questionnaire.Core.Abstractions
         ICompletedQuestionnaireRepository CompletedQuestionnaireRepository { get; }
         IQuestionnaireRepository QuestionnaireRepository { get; }
         IQuestionRepository QuestionRepository { get; }
+
+        Task SaveChangesAsync();
     }
 }

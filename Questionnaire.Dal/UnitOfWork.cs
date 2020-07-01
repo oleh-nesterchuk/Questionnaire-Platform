@@ -1,6 +1,7 @@
 ﻿using Questionnaire.Core.Abstractions;
 using Questionnaire.Core.Abstractions.Repositories;
 using Questionnaire.Dal.Repositories;
+using System.Threading.Tasks;
 
 namespace Questionnaire.Dal
 {
@@ -33,6 +34,11 @@ namespace Questionnaire.Dal
 
         public IQuestionRepository QuestionRepository =>
             _questionRepository ??= new QuestionRepository(_context);
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
 
         #region IDisposable Implementation
         private bool disposed = false;
