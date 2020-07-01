@@ -1,6 +1,6 @@
 ﻿namespace Questionnaire.Core.Abstractions
 {
-    interface IEntity<T>
+    public interface IEntity<T>
     {
         T Id { get; set; }
     }
