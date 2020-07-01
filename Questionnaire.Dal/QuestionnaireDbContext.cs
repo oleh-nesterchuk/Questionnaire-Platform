@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Questionnaire.Core.Entities;
-using Questionnaire.Core.Enums;
-using System;
 
 namespace Questionnaire.Dal
 {
     public class QuestionnaireDbContext : DbContext
     {
+        public QuestionnaireDbContext() { }
+
         public QuestionnaireDbContext(DbContextOptions<QuestionnaireDbContext> options) : base(options) { }
 
         public DbSet<Answer> Answers { get; set; }
@@ -19,7 +20,7 @@ namespace Questionnaire.Dal
         {
             if (!builder.IsConfigured)
             {
-                builder.UseSqlServer("my connection string");
+                builder.UseSqlServer("Data Source=localhost;Initial Catalog=Questionnaire;Integrated Security=True;MultipleActiveResultSets=true");
             }
         }
 
