@@ -1,5 +1,4 @@
-﻿using Questionnaire.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Questionnaire.Core.Dto
@@ -14,6 +13,6 @@ namespace Questionnaire.Core.Dto
 
         public int CreatorId { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<QuestionWithIdDto> Questions { get; set; }
     }
 }

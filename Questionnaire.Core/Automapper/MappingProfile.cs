@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Questionnaire.Core.Dto;
+using Questionnaire.Core.Entities;
 
 namespace Questionnaire.Core.Automapper
 {
@@ -9,6 +10,11 @@ namespace Questionnaire.Core.Automapper
         {
             CreateMap<Entities.Questionnaire, QuestionnaireInfoDto>().ReverseMap();
             CreateMap<Entities.Questionnaire, FullQuestionnaireDto>().ReverseMap();
+
+            CreateMap<Question, QuestionWithIdDto>().ReverseMap();
+            CreateMap<Question, QuestionWithoutIdDto>().ReverseMap();
+
+            CreateMap<Answer, AnswerWithIdDto>().ReverseMap();
         }
     }
 }
