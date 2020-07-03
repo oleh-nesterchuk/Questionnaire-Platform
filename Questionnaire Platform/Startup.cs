@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Questionnaire.Api.Filters;
 using Questionnaire.Core.Abstractions;
 using Questionnaire.Core.Abstractions.Services;
 using Questionnaire.Core.Automapper;
@@ -34,7 +35,10 @@ namespace Questionnaire.Api
 
             services.AddAutoMapper(typeof(MappingProfile));
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<CatchAllExceptionAttribute>(int.MaxValue);
+            });
 
             services.AddSwaggerGen();
         }

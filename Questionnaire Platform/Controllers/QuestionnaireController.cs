@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Questionnaire.Api.Filters;
 using Questionnaire.Core.Abstractions.Services;
 using Questionnaire.Core.Dto;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Questionnaire.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ElementNotFound]
         public async Task<FullQuestionnaireDto> Get(int id)
         {
             return await _questionnaireService.GetFullQuestionnaireByIdAsync(id);
