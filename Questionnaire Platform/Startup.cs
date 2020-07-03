@@ -35,12 +35,20 @@ namespace Questionnaire.Api
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddControllers();
+
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Questionnaire API");
+                    c.RoutePrefix = string.Empty;
+                });
                 app.UseDeveloperExceptionPage();
             }
 
