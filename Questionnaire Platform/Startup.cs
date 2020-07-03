@@ -28,6 +28,8 @@ namespace Questionnaire.Api
                 options.UseSqlServer(Configuration.GetConnectionString("QuestionnaireDbConnection")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuestionnaireService, QuestionnaireService>();
 
             services.AddAutoMapper(typeof(MappingProfile));

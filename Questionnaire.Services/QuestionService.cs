@@ -35,6 +35,7 @@ namespace Questionnaire.Services
 
         public ICollection<QuestionWithIdDto> GetAllQuestions(int questionnaireId)
         {
+            // TODO: Add if (questionnaire.Exists()) throw NotFound()
             var questions = _unitOfWork.QuestionRepository.GetAll(questionnaireId);
             var dtos = _mapper.Map<ICollection<QuestionWithIdDto>>(questions);
 
