@@ -62,6 +62,8 @@ namespace Questionnaire.Api
             {
                 endpoints.MapControllers();
             });
+
+            SeedData.EnsurePopulated(app.ApplicationServices);
         }
     }
 }
