@@ -19,7 +19,9 @@ namespace Questionnaire.Dal.Repositories
 
         public IQueryable<Question> GetAll(int questionnaireId)
         {
-            return _context.Questions.Where(q => q.QuestionnaireId == questionnaireId);
+            return _context.Questions
+                .Include(q => q.Answers)
+                .Where(q => q.QuestionnaireId == questionnaireId);
         }
     }
 }

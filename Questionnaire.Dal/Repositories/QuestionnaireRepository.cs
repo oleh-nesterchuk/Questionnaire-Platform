@@ -12,6 +12,7 @@ namespace Questionnaire.Dal.Repositories
         {
             return await _context.Questionnaires
                 .Include(q => q.Questions)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
     }
